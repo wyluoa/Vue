@@ -1,8 +1,11 @@
 <template>
   <div>
-    <select>
-      <option label="1" value="1"></option>
-    </select>
+    <div style="width: 61.8%;margin: auto">
+      <label>Group : </label>
+      <select>
+        <option v-for="opt of group" :key="opt" :label="opt" :value="opt"></option>
+      </select>
+    </div>
     <div class="table-container" id="drm-table">
       <hr ref="topline" style="margin: unset;border-color: transparent;" />
       <table>
@@ -33,7 +36,8 @@ export default {
   data () {
     return {
       dataList: [],
-      showScrollTopButton: false
+      showScrollTopButton: false,
+      group: []
     }
   },
   created () {
@@ -57,6 +61,9 @@ export default {
           status: i % 2 ? 'success' : 'fail'
         })
       }
+      for (let i = 1;i <10 ; i++) {
+        this.group.push('group' + i)
+      }
     },
     scrollToTop () {
       let a = document.getElementById('drm-table')
@@ -78,11 +85,11 @@ select {
 .table-container {
   height: 80vh;
   overflow: auto;
+  margin: auto;
 }
 table {
   border-collapse: collapse;
   width: 61.8%;
-  
   margin: auto;
 }
 th, td {
@@ -129,5 +136,19 @@ th {
 }
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
   opacity: 0;
+}
+
+.grid {
+  display: grid;
+  overflow: auto;
+
+  &-row {
+    display: grid;
+    grid-template-columns: repeat(3, 150px);
+    height: 40px;
+  }
+  &-col {
+    border: 3px solid #e8e8e8
+  }
 }
 </style>
